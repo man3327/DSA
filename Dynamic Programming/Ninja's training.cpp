@@ -43,3 +43,25 @@ int recurse(int idx,vector<vector<int>>& matrix,int last){
         return recurse(matrix.size()-1,matrix,3);
     }
 };
+//Tabulation
+class Solution {
+public:
+    int ninjaTraining(vector<vector<int>>& matrix) {
+        vector<vector<int>> dp(matrix.size(),vector<int>(4,-1));
+        dp[0][0]=max(matrix[0][1],matrix[0][2]);
+        dp[0][1]=max(matrix[0][0],matrix[0][2]);
+        dp[0][2]=max(matrix[0][1],matrix[0][0]);
+        dp[0][3]=max({matrix[0][1],matrix[0][2],matrix[0][0]});
+        for(int i=1;i<matrix.size();i++){
+            for(int last=0;last<4;last++){
+                dp[i][last]=0;
+                for(int task=0;task<3;task++){
+                    if(task!=last){
+                        dp[i][last]=max(dp[i][last],matrix[i][task]+dp[i-1][task]);
+                    }
+                }
+            }
+        }return dp[matrix.size()-1][3];
+
+    }
+};
