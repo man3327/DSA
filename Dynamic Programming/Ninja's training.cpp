@@ -65,3 +65,26 @@ public:
 
     }
 };
+//O(4) space
+class Solution {
+public:
+    int ninjaTraining(vector<vector<int>>& matrix) {
+        vector<int> prev(4,0);
+        prev[0]=max(matrix[0][1],matrix[0][2]);
+        prev[1]=max(matrix[0][0],matrix[0][2]);
+        prev[2]=max(matrix[0][1],matrix[0][0]);
+        prev[3]=max({matrix[0][1],matrix[0][2],matrix[0][0]});
+        for(int i=1;i<matrix.size();i++){
+            vector<int> temp(4,0);
+            for(int last=0;last<4;last++){
+                temp[last]=0;
+                for(int task=0;task<3;task++){
+                    if(task!=last){
+                        temp[last]=max(temp[last],matrix[i][task]+prev[task]);
+                    }
+                }
+            }prev=temp;
+        }return prev[3];
+
+    }
+}; 
