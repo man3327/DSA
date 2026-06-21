@@ -53,3 +53,23 @@ int recurse(int n,int m,vector<vector<int>>& grid){
         return recurse(grid.size()-1,grid[0].size()-1,grid);
     }
 };
+//Space Optimisation
+class Solution {
+public:
+    int minPathSum(vector<vector<int>>& grid) {
+        int n=grid.size();
+        int m=grid[0].size();
+        vector<int> prev(n,0);
+        for(int i=0;i<n;i++){
+            vector<int> curr(m,0);
+            for(int j=0;j<m;j++){
+                int left=INT_MAX,right=INT_MAX;
+                if(i>0) left=grid[i][j]+prev[j];
+                if(j>0) right=grid[i][j]+curr[j-1];
+                if(left==INT_MAX && right==INT_MAX) curr[j]=grid[i][j];
+                else curr[j]=min(left,right);
+            }prev=curr;
+        }
+        return prev[m-1];
+    }
+};
