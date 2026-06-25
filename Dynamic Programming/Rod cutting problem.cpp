@@ -63,3 +63,21 @@ class Solution{
         }return prev[n];
     }
 };
+//optimisation to 1 array
+class Solution{
+  public:
+    int rodCutting(vector<int> price, int n) {
+        vector<int> prev(n+1,0);
+        for(int i=0;i<=n;i++){
+            prev[i]=i*price[0];
+        }
+        for(int i=1;i<price.size();i++){
+            for(int cut=0;cut<=n;cut++){
+                int pick=INT_MIN;
+                if(cut>=(i+1)) pick=price[i]+prev[cut-(i+1)];
+                int np=prev[cut];
+                prev[cut]=max(pick,np);
+            }
+        }return prev[n];
+    }
+};
