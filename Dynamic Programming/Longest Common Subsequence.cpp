@@ -74,3 +74,15 @@ public:
         }return prev[text2.size()];
     }
 };
+//To print the subsequence 
+string ans="";
+        while(n>0 && m>0){
+            if(text1[n-1]==text2[m-1]){
+                ans+=text1[n-1];
+                n--;m--;
+            }else if(dp[n-1][m]>dp[n][m-1]){
+                n--;
+            }else{
+                m--;
+            }
+        }cout<<ans;
