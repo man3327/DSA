@@ -48,7 +48,7 @@ int recurse(int i,vector<int>& prices,bool buy,int cap){
 }
     int maxProfit(vector<int>& prices) {
         //dp.resize(prices.size(),vector<vector<int>>(2,vector<int>(3,-1)));
-        dp.resize(prices.size()+1,vector<vector<int>>(2,vector<int>(3,0)));
+        dp.resize(prices.size()+1,vector<vector<int>>(2,vector<int>(3,0)));//capacity is 2
         int n=prices.size();
         for(int i=n-1;i>=0;i--){
             for(int buy=0;buy<=1;buy++){
