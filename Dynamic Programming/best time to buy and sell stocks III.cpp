@@ -41,7 +41,7 @@ int recurse(int i,vector<int>& prices,bool buy,int cap){
         profit = -prices[i] + recurse(i+1,prices,false,cap);
         notprofit = recurse(i+1,prices,true,cap);
     }else {
-        profit = prices[i] + recurse(i+1,prices,true,cap-1);
+        profit = prices[i] + recurse(i+1,prices,true,cap-1);//we have bought and sell the stock ,so 1 transaction is completed ,so capacity--
         notprofit = recurse(i+1,prices,false,cap);
     }
     return dp[i][buy][cap]=max(profit,notprofit);
