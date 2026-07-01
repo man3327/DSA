@@ -76,3 +76,40 @@ public:
         return maxi;
     }
 };
+//if we want to print the longest increasing subsequence
+//we can use the same approach as above but we need to keep track of the previous index of the current index in a separate array and then we can backtrack to get the longest increasing subsequence
+//so we will use a hash array to keep track of the previous index of the current index and then we can backtrack to get the longest increasing subsequence
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        vector<int>dp(nums.size(),1);
+         vector<int>hash(nums.size(),0);
+        for(int idx=0;idx<nums.size();idx++){
+            hash[idx]=idx;
+            for(int prev=0;prev<idx;prev++){
+                if(nums[prev]<nums[idx]) {
+                    if(dp[prev]+1>dp[idx]){
+                        dp[idx]=dp[prev]+1;
+                        hash[idx]=prev;
+                    }
+                }
+            }
+        }
+        int maxi=INT_MIN;
+        int lastidx=0;
+        for(int i=0;i<dp.size();i++){
+            if(dp[i]>maxi){
+                lastidx=i;
+                maxi=dp[i];
+            }
+        }
+        vector<int> ans;
+        while(lastidx!=hash[lastidx]){
+            ans.push_back(nums[lastidx]);
+            lastidx=hash[lastidx];
+        } ans.push_back(nums[lastidx]);
+        reverse(ans.begin(),ans.end());
+        for(auto &p:ans) cout<<p<<" ";
+        return maxi;
+    }
+};
